@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kishan Khodbhaya - Application Security Portfolio</title>
-    <!-- Chosen Palette: Slate Monochrome (bg-stone-100, bg-white) with a professional slate gray accent (text-slate-600, border-slate-500) -->
+    <!-- Chosen Palette: Warm Neutrals (bg-stone-100, bg-white) with a professional blue/indigo accent (text-indigo-600, border-indigo-500) -->
     <!-- Application Structure Plan: Designed a "Filterable Portfolio Dashboard." A sticky nav links to sections. The core is an interactive "Skill Explorer" (HTML/JS buttons) with categories: AI/Automation, Project Management, Full-Stack/DevOps, and Security. Clicking a category button filters a responsive grid of "Project Cards." Clicking a project card opens a modal (HTML/JS toggle) with its full details. This structure is superior to a linear report because it allows recruiters to instantly find relevant projects matching their needs, rather than manually scanning all 13. An Experience Timeline and Education section provide context. -->
     <!-- Visualization & Content Choices:
     * Portfolio (13 projects): Goal: Organize & Explore. Method: HTML/Tailwind grid of cards. Interaction: JS onclick to toggle a modal display (display: 'flex'/'none') for project details. JS onclick on skill buttons will filter this grid by adding/removing a 'hidden' class based on data-category attributes on the cards. Justification: Manages a large amount of text by hiding details until requested.
@@ -15,35 +15,28 @@
     * CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;600&family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap'); /* Added terminal font */
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8f7f5;
             color: #1f2937;
         }
-        .font-terminal {
-            font-family: 'Inconsolata', monospace;
+        /* Custom class for terminal font */
+        .font-mono-terminal {
+            font-family: 'Roboto Mono', monospace;
         }
         .skill-btn.active {
-            background-color: #1e293b; /* slate-800 */
+            background-color: #4f46e5;
             color: #ffffff;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
         .skill-btn {
             transition: all 0.2s ease-in-out;
         }
-        .skill-btn:not(.active):hover {
-            color: #22c55e; /* green-500 */
-            border-color: #22c55e;
-        }
         .project-card {
             transition: all 0.3s ease-in-out;
-            border: 1px solid transparent;
-        }
-        .project-card:hover {
-            transform: translateY(-0.25rem);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            border-color: #22c55e; /* green-500 */
         }
         .project-card.hidden {
             transform: scale(0.9);
@@ -62,11 +55,11 @@
             border-radius: 10px;
         }
         #modal-content::-webkit-scrollbar-thumb {
-            background: #94a3b8; /* slate-400 */
+            background: #c4b5fd;
             border-radius: 10px;
         }
         #modal-content::-webkit-scrollbar-thumb:hover {
-            background: #64748b; /* slate-500 */
+            background: #a78bfa;
         }
     </style>
 </head>
@@ -77,16 +70,16 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex-shrink-0 flex items-center">
-                    <h1 class="text-xl font-bold text-slate-700 font-terminal">Kishan Khodbhaya</h1>
+                    <h1 class="text-xl font-bold text-indigo-600 font-mono-terminal">Kishan Khodbhaya</h1> <!-- Added font -->
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a href="#about" class="text-gray-500 hover:text-green-600 inline-flex items-center px-1 pt-1 text-sm font-medium">About</a>
-                    <a href="#skills" class="text-gray-500 hover:text-green-600 inline-flex items-center px-1 pt-1 text-sm font-medium">Skills & Projects</a>
-                    <a href="#experience" class="text-gray-500 hover:text-green-600 inline-flex items-center px-1 pt-1 text-sm font-medium">Experience</a>
-                    <a href="#education" class="text-gray-500 hover:text-green-600 inline-flex items-center px-1 pt-1 text-sm font-medium">Education</a>
+                    <a href="#about" class="text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium">About</a>
+                    <a href="#skills" class="text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium">Skills & Projects</a>
+                    <a href="#experience" class="text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium">Experience</a>
+                    <a href="#education" class="text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium">Education</a>
                 </div>
                 <div class="sm:hidden flex items-center">
-                    <select id="mobile-nav" class="text-gray-500 rounded-md border-gray-300 shadow-sm focus:border-slate-300 focus:ring focus:ring-slate-200 focus:ring-opacity-50">
+                    <select id="mobile-nav" class="text-gray-500 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         <option value="#about">About</option>
                         <option value="#skills">Skills & Projects</option>
                         <option value="#experience">Experience</option>
@@ -104,20 +97,20 @@
         <section id="about" class="bg-white rounded-lg shadow-md p-6 md:p-8 mb-12">
             <div class="flex flex-col md:flex-row md:items-center justify-between">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-900 font-terminal">Kishan Khodbhaya</h2>
-                    <p class="mt-1 text-lg font-medium text-slate-600 font-terminal">Application Security Engineer | API Penetration Tester | Python & Automation</p>
+                    <h2 class="text-3xl font-bold text-gray-900 font-mono-terminal">Kishan Khodbhaya</h2> <!-- Added font -->
+                    <p class="mt-1 text-lg font-medium text-indigo-600 font-mono-terminal">Application Security Engineer | API Penetration Tester | Python & Automation</p> <!-- Added font -->
                     <div class="mt-4 flex flex-wrap gap-4 text-sm">
-                        <a href="mailto:Khodbhaya1843@gmail.com" class="text-gray-600 hover:text-green-600">Khodbhaya1843@gmail.com</a>
+                        <a href="mailto:Khodbhaya1843@gmail.com" class="text-gray-600 hover:text-indigo-600">Khodbhaya1843@gmail.com</a>
                         <span class="text-gray-300">|</span>
-                        <a href="https://www.linkedin.com/in/kishan-khodbhaya" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-green-600">LinkedIn Profile</a>
+                        <a href="https://www.linkedin.com/in/kishan-khodbhaya" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-indigo-600">LinkedIn Profile</a>
                         <span class="text-gray-300">|</span>
                         <span class="text-gray-600">+91 88498 14384</span>
                     </div>
                 </div>
                 <div class="mt-6 md:mt-0 md:ml-6 flex-shrink-0">
-                    <div class="bg-slate-50 border-l-4 border-slate-500 p-4 rounded-r-lg">
-                        <h3 class="text-sm font-semibold text-slate-800">★ Star Employee of the Year (2024)</h3>
-                        <p class="text-sm text-slate-700">Awarded at Vedikin Solutions for the "ENC App"</p>
+                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg">
+                        <h3 class="text-sm font-semibold text-indigo-800 font-mono-terminal">★ Star Employee of the Year (2024)</h3> <!-- Added font -->
+                        <p class="text-sm text-indigo-700">Awarded at Vedikin Solutions for the "ENC App"</p>
                     </div>
                 </div>
             </div>
@@ -141,24 +134,24 @@
 
         <!-- Skills & Projects Section -->
         <section id="skills" class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">Interactive Project Portfolio</h2>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2 font-mono-terminal">Interactive Project Portfolio</h2> <!-- Added font -->
             <p class="text-gray-600 mb-6">My skills are focused on four key areas. Click a category below to filter the 13 projects I've built and see my experience in action.</p>
             
             <!-- Skill Filter Buttons -->
             <div id="skill-filter-container" class="flex flex-wrap gap-3 mb-8">
-                <button data-filter="all" class="skill-btn active text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200">
+                <button data-filter="all" class="skill-btn active text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50">
                     All Projects (13)
                 </button>
-                <button data-filter="ai-automation" class="skill-btn text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200">
+                <button data-filter="ai-automation" class="skill-btn text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50">
                     AI & Automation (8)
                 </button>
-                <button data-filter="full-stack-devops" class="skill-btn text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200">
+                <button data-filter="full-stack-devops" class="skill-btn text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50">
                     Full-Stack & DevOps (5)
                 </button>
-                <button data-filter="project-management" class="skill-btn text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200">
+                <button data-filter="project-management" class="skill-btn text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50">
                     Project Management (2)
                 </button>
-                <button data-filter="security" class="skill-btn text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200">
+                <button data-filter="security" class="skill-btn text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50">
                     Security (2)
                 </button>
             </div>
@@ -172,15 +165,15 @@
 
         <!-- Experience Section -->
         <section id="experience" class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Professional Experience</h2>
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 font-mono-terminal">Professional Experience</h2> <!-- Added font -->
             <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
                 <h3 class="text-xl font-semibold text-gray-800">Vedikin Solutions</h3>
-                <p class="text-slate-600 font-medium text-sm mb-6">1 yr 10 mos total (Jan 2024 - Present)</p>
+                <p class="text-indigo-600 font-medium text-sm mb-6">1 yr 10 mos total (Jan 2024 - Present)</p>
                 
-                <div class="relative border-l-2 border-slate-200 pl-6 space-y-8">
+                <div class="relative border-l-2 border-indigo-200 pl-6 space-y-8">
                     <!-- Experience Item 1 -->
                     <div class="relative">
-                        <span class="absolute -left-8 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-slate-600 ring-4 ring-white"></span>
+                        <span class="absolute -left-8 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-600 ring-4 ring-white"></span>
                         <h4 class="font-semibold text-gray-900">Automation Specialist</h4>
                         <p class="text-sm text-gray-500">Aug 2024 - Present</p>
                         <ul class="mt-2 list-disc list-outside text-gray-700 text-sm pl-5 space-y-1">
@@ -191,7 +184,7 @@
                     </div>
                     <!-- Experience Item 2 -->
                     <div class="relative">
-                        <span class="absolute -left-8 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-slate-600 ring-4 ring-white"></span>
+                        <span class="absolute -left-8 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-600 ring-4 ring-white"></span>
                         <h4 class="font-semibold text-gray-900">Technical Project Manager</h4>
                         <p class="text-sm text-gray-500">Apr 2025 - Oct 2025</p>
                         <ul class="mt-2 list-disc list-outside text-gray-700 text-sm pl-5 space-y-1">
@@ -203,7 +196,7 @@
                     </div>
                     <!-- Experience Item 3 -->
                     <div class="relative">
-                        <span class="absolute -left-8 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-slate-600 ring-4 ring-white"></span>
+                        <span class="absolute -left-8 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-600 ring-4 ring-white"></span>
                         <h4 class="font-semibold text-gray-900">Python Developer Automation Engineer</h4>
                         <p class="text-sm text-gray-500">Jul 2024 - Oct 2025</p>
                         <ul class="mt-2 list-disc list-outside text-gray-700 text-sm pl-5 space-y-1">
@@ -215,7 +208,7 @@
                     </div>
                     <!-- Experience Item 4 -->
                     <div class="relative">
-                        <span class="absolute -left-8 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-slate-600 ring-4 ring-white"></span>
+                        <span class="absolute -left-8 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-600 ring-4 ring-white"></span>
                         <h4 class="font-semibold text-gray-900">Python Intern</h4>
                         <p class="text-sm text-gray-500">Jan 2024 - Jun 2024</p>
                         <ul class="mt-2 list-disc list-outside text-gray-700 text-sm pl-5 space-y-1">
@@ -230,7 +223,7 @@
 
         <!-- Education Section -->
         <section id="education" class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Education & Honors</h2>
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 font-mono-terminal">Education & Honors</h2> <!-- Added font -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Education 1 -->
                 <div class="bg-white rounded-lg shadow-md p-6">
@@ -245,8 +238,8 @@
                     <p class="text-sm text-gray-500">Graduated: 2022 (CGPA: 6.98)</p>
                 </div>
                 <!-- Honor -->
-                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-slate-500">
-                    <h4 class="font-semibold text-slate-800">★ Star Employee of the Year (2024)</h4>
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-indigo-500">
+                    <h4 class="font-semibold text-indigo-800 font-mono-terminal">★ Star Employee of the Year (2024)</h4> <!-- Added font -->
                     <p class="text-sm text-gray-600">Vedikin Solutions</p>
                     <p class="text-sm text-gray-500">Awarded for the "ENC App"</p>
                 </div>
@@ -267,14 +260,14 @@
         <div class="bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] flex flex-col">
             <!-- Modal Header -->
             <div class="flex justify-between items-center p-5 border-b border-gray-200">
-                <h3 id="modal-title" class="text-xl font-semibold text-gray-900 font-terminal">Project Title</h3>
-                <button id="modal-close-btn" class="text-gray-400 hover:text-green-600 transition-colors">
+                <h3 id="modal-title" class="text-xl font-semibold text-gray-900 font-mono-terminal">Project Title</h3> <!-- Added font -->
+                <button id="modal-close-btn" class="text-gray-400 hover:text-gray-600 transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             <!-- Modal Content -->
             <div id="modal-content" class="p-6 space-y-4 overflow-y-auto">
-                <p id="modal-date" class="text-sm text-slate-600 font-medium"></p>
+                <p id="modal-date" class="text-sm text-indigo-600 font-medium"></p>
                 <div id="modal-description" class="text-gray-700 space-y-3"></div>
                 <div id="modal-skills" class="flex flex-wrap gap-2"></div>
             </div>
@@ -477,15 +470,15 @@
                     const isVisible = filter === 'all' || project.categories.includes(filter);
                     
                     const card = document.createElement('div');
-                    card.className = `project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer ${isVisible ? '' : 'hidden'}`;
+                    card.className = `project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-xl hover:-translate-y-1 ${isVisible ? '' : 'hidden'}`;
                     card.setAttribute('data-project-id', project.id);
                     
                     card.innerHTML = `
                         <div class="p-6">
-                            <h3 class="font-semibold text-gray-900 mb-2 font-terminal">${project.title}</h3>
+                            <h3 class="font-semibold text-gray-900 mb-2">${project.title}</h3>
                             <p class="text-sm text-gray-600 line-clamp-2">${project.summary}</p>
                             <div class="mt-4 flex flex-wrap gap-2">
-                                ${project.categories.map(cat => `<span class="text-xs font-medium text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full">${getCategoryName(cat)}</span>`).join('')}
+                                ${project.categories.map(cat => `<span class="text-xs font-medium text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded-full">${getCategoryName(cat)}</span>`).join('')}
                             </div>
                         </div>
                     `;
@@ -519,7 +512,7 @@
                 modalDescription.innerHTML = project.description.map(p => `<p>${p}</p>`).join('');
                 
                 modalSkills.innerHTML = project.skills.map(skill => 
-                    `<span class="text-xs font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-md font-terminal">${skill}</span>`
+                    `<span class="text-xs font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-md font-mono-terminal">${skill}</span>` /* Added font */
                 ).join('');
                 
                 modal.style.display = 'flex';
