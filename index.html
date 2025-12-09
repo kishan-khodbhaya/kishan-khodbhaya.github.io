@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kishan Khodbhaya - AI Automation Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f7f5;
-            color: #1f2937;
         }
         .font-mono-terminal {
             font-family: 'Roboto Mono', monospace;
@@ -42,36 +45,54 @@
             background: #f1f1f1;
             border-radius: 10px;
         }
+        .dark #modal-content::-webkit-scrollbar-track {
+            background: #374151;
+        }
         #modal-content::-webkit-scrollbar-thumb {
             background: #c4b5fd;
             border-radius: 10px;
+        }
+        .dark #modal-content::-webkit-scrollbar-thumb {
+            background: #6366f1;
         }
         #modal-content::-webkit-scrollbar-thumb:hover {
             background: #a78bfa;
         }
     </style>
 </head>
-<body class="bg-stone-50">
+<body class="bg-stone-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200">
 
     <!-- Header & Navigation -->
-    <nav class="bg-white shadow-sm sticky top-0 z-40">
+    <nav class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-40 border-b border-transparent dark:border-gray-700 transition-colors duration-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex-shrink-0 flex items-center">
-                    <h1 class="text-xl font-bold text-indigo-600 font-mono-terminal">Kishan Khodbhaya</h1>
+                    <h1 class="text-xl font-bold text-indigo-600 dark:text-indigo-400 font-mono-terminal">Kishan Khodbhaya</h1>
                 </div>
-                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a href="#about" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">About</a>
-                    <a href="#skills" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">Projects</a>
-                    <a href="#experience" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">Experience</a>
-                    <a href="#education" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">Credentials</a>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">
+                    <a href="#about" class="text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">About</a>
+                    <a href="#skills" class="text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">Projects</a>
+                    <a href="#experience" class="text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">Experience</a>
+                    <a href="#education" class="text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">Education & Certificates</a>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 transition-colors">
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </button>
                 </div>
-                <div class="sm:hidden flex items-center">
-                    <select id="mobile-nav" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                
+                <div class="sm:hidden flex items-center space-x-3">
+                    <!-- Mobile Dark Mode Toggle -->
+                    <button id="theme-toggle-mobile" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2.5">
+                       <svg id="theme-toggle-dark-icon-mobile" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                       <svg id="theme-toggle-light-icon-mobile" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </button>
+                    <select id="mobile-nav" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                         <option value="#about">About</option>
                         <option value="#skills">Projects</option>
                         <option value="#experience">Experience</option>
-                        <option value="#education">Credentials</option>
+                        <option value="#education">Education & Certificates</option>
                     </select>
                 </div>
             </div>
@@ -82,19 +103,19 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         <!-- Hero / About Section -->
-        <section id="about" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-16 relative overflow-hidden">
-            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-indigo-50 rounded-full blur-2xl"></div>
+        <section id="about" class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8 mb-16 relative overflow-hidden transition-colors duration-200">
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-indigo-50 dark:bg-indigo-900/30 rounded-full blur-2xl"></div>
             
             <div class="flex flex-col md:flex-row md:items-start justify-between relative z-10">
                 <div class="md:w-3/4">
-                    <h2 class="text-4xl font-bold text-gray-900 tracking-tight font-mono-terminal">Kishan Khodbhaya</h2>
-                    <p class="mt-3 text-xl font-medium text-indigo-600 font-mono-terminal">AI Automation Architect | Workflow Orchestration & Google Gemini Specialist</p>
-                    <div class="mt-6 flex flex-wrap gap-6 text-sm font-medium text-gray-600">
-                        <a href="mailto:Khodbhaya1843@gmail.com" class="flex items-center hover:text-indigo-600 transition-colors">
+                    <h2 class="text-4xl font-bold text-gray-900 dark:text-white tracking-tight font-mono-terminal">Kishan Khodbhaya</h2>
+                    <p class="mt-3 text-xl font-medium text-indigo-600 dark:text-indigo-400 font-mono-terminal">AI Automation Architect | Workflow Orchestration & Google Gemini Specialist</p>
+                    <div class="mt-6 flex flex-wrap gap-6 text-sm font-medium text-gray-600 dark:text-gray-400">
+                        <a href="mailto:Khodbhaya1843@gmail.com" class="flex items-center hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             Khodbhaya1843@gmail.com
                         </a>
-                        <a href="https://www.linkedin.com/in/kishan-khodbhaya" target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-indigo-600 transition-colors">
+                        <a href="https://www.linkedin.com/in/kishan-khodbhaya" target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                             <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                             LinkedIn Profile
                         </a>
@@ -105,28 +126,28 @@
                     </div>
                 </div>
                 <div class="mt-8 md:mt-0">
-                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm font-semibold shadow-sm">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700/50 text-yellow-800 dark:text-yellow-400 text-sm font-semibold shadow-sm">
                         <span class="mr-2">★</span> Star Employee of the Year (2024)
                     </div>
                 </div>
             </div>
             
-            <div class="mt-8 text-gray-600 leading-relaxed space-y-4 max-w-4xl">
+            <div class="mt-8 text-gray-600 dark:text-gray-300 leading-relaxed space-y-4 max-w-4xl">
                 <p>
                     I am an <strong>AI Automation Architect and Workflow Orchestration Specialist</strong> focused on architecting and deploying Intelligent Automation solutions that deliver measurable ROI and eliminate manual work. My core strength is blending advanced Generative AI tools (Google Gemini, n8n) with robust backend development (Python, Flask) to create scalable, zero-touch business systems across the Google Cloud ecosystem.
                 </p>
                 <div class="grid md:grid-cols-2 gap-6 mt-6">
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                        <h4 class="font-semibold text-gray-900 mb-2">AI Agent Orchestration</h4>
+                    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg border border-gray-100 dark:border-gray-600">
+                        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">AI Agent Orchestration</h4>
                         <p class="text-sm">Architecting full-stack autonomous systems (ChatOps, Voice Agents) integrating Twilio, ElevenLabs, and Mattermost.</p>
                     </div>
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                        <h4 class="font-semibold text-gray-900 mb-2">System Architecture</h4>
+                    <div class="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg border border-gray-100 dark:border-gray-600">
+                        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">System Architecture</h4>
                         <p class="text-sm">Designing high-performance RESTful APIs (Python, Flask) and robust production environments (Ubuntu, Nginx).</p>
                     </div>
                 </div>
-                <p class="mt-4 pt-4 border-t border-gray-100">
-                    <strong class="text-gray-900">Core Competencies & Technology Stack:</strong> n8n, Google Gemini, Python, Flask, Ubuntu, DevOps, API Architecture, Data Integrity, ROI Analysis, Selenium.
+                <p class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                    <strong class="text-gray-900 dark:text-white">Core Competencies & Technology Stack:</strong> n8n, Google Gemini, Python, Flask, Ubuntu, DevOps, API Architecture, Data Integrity, ROI Analysis, Selenium.
                 </p>
             </div>
         </section>
@@ -135,27 +156,27 @@
         <section id="skills" class="mb-16">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-900 font-mono-terminal">Strategic Engineering Initiatives</h2>
-                    <p class="mt-2 text-gray-600">Select a category to explore my technical implementations.</p>
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white font-mono-terminal">Strategic Engineering Initiatives</h2>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Select a category to explore my technical implementations.</p>
                 </div>
             </div>
             
             <!-- Skill Filter Buttons -->
             <div id="skill-filter-container" class="flex flex-wrap gap-3 mb-8">
                 <!-- Featured (New Category) -->
-                <button data-filter="featured" class="skill-btn active text-sm font-medium py-2.5 px-5 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-700">
+                <button data-filter="featured" class="skill-btn active text-sm font-medium py-2.5 px-5 rounded-full bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200">
                     ★ Featured
                 </button>
-                <button data-filter="all" class="skill-btn text-sm font-medium py-2.5 px-5 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-700">
+                <button data-filter="all" class="skill-btn text-sm font-medium py-2.5 px-5 rounded-full bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200">
                     All Projects
                 </button>
-                <button data-filter="ai-automation" class="skill-btn text-sm font-medium py-2.5 px-5 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-700">
+                <button data-filter="ai-automation" class="skill-btn text-sm font-medium py-2.5 px-5 rounded-full bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200">
                     AI & Automation
                 </button>
-                <button data-filter="full-stack-devops" class="skill-btn text-sm font-medium py-2.5 px-5 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-700">
+                <button data-filter="full-stack-devops" class="skill-btn text-sm font-medium py-2.5 px-5 rounded-full bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200">
                     Full-Stack & DevOps
                 </button>
-                <button data-filter="security" class="skill-btn text-sm font-medium py-2.5 px-5 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-700">
+                <button data-filter="security" class="skill-btn text-sm font-medium py-2.5 px-5 rounded-full bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200">
                     Security
                 </button>
             </div>
@@ -164,61 +185,61 @@
             <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Project cards will be dynamically inserted here by JavaScript -->
             </div>
-            <p class="text-right mt-4 text-sm text-gray-500">Showing <span id="project-count" class="font-medium text-gray-900"></span> projects</p>
+            <p class="text-right mt-4 text-sm text-gray-500 dark:text-gray-400">Showing <span id="project-count" class="font-medium text-gray-900 dark:text-white"></span> projects</p>
         </section>
 
         <!-- Experience Section -->
         <section id="experience" class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8 font-mono-terminal">Professional Experience</h2>
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="p-8 border-b border-gray-100 bg-gray-50 flex flex-col md:flex-row justify-between md:items-center">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 font-mono-terminal">Professional Experience</h2>
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden transition-colors duration-200">
+                <div class="p-8 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/30 flex flex-col md:flex-row justify-between md:items-center">
                     <div>
-                        <h3 class="text-2xl font-bold text-gray-900">VedikIn Solutions</h3>
-                        <p class="text-indigo-600 font-medium">Gandhinagar, Gujarat, India</p>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">VedikIn Solutions</h3>
+                        <p class="text-indigo-600 dark:text-indigo-400 font-medium">Gandhinagar, Gujarat, India</p>
                     </div>
-                    <div class="mt-2 md:mt-0 px-3 py-1 bg-white rounded-full border border-gray-200 text-sm font-medium text-gray-600 shadow-sm">
+                    <div class="mt-2 md:mt-0 px-3 py-1 bg-white dark:bg-gray-700 rounded-full border border-gray-200 dark:border-gray-600 text-sm font-medium text-gray-600 dark:text-gray-300 shadow-sm">
                         Jan 2024 - Nov 2025
                     </div>
                 </div>
                 
                 <div class="p-8 space-y-12">
                     <!-- Experience Item 1 -->
-                    <div class="relative pl-8 border-l-2 border-indigo-100">
-                        <span class="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-indigo-600 ring-4 ring-white"></span>
+                    <div class="relative pl-8 border-l-2 border-indigo-100 dark:border-indigo-900">
+                        <span class="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-indigo-600 ring-4 ring-white dark:ring-gray-800"></span>
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                            <h4 class="text-lg font-bold text-gray-900">Automation Specialist</h4>
-                            <span class="text-sm font-medium text-gray-500 bg-gray-50 px-2 py-1 rounded">Aug 2024 - Nov 2025</span>
+                            <h4 class="text-lg font-bold text-gray-900 dark:text-white">Automation Specialist</h4>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 px-2 py-1 rounded">Aug 2024 - Nov 2025</span>
                         </div>
-                        <p class="text-gray-600 mb-3 italic">Designed and deployed an internal automation platform using n8n, Python, and AI.</p>
-                        <ul class="list-disc list-outside ml-4 text-sm text-gray-700 space-y-2">
-                            <li><strong class="text-indigo-900">4-Stage HR Pipeline:</strong> Engineered a zero-touch resume screening system using Google Gemini Vision AI.</li>
-                            <li><strong class="text-indigo-900">Infrastructure Provisioning:</strong> Deployed a Telegram-triggered admin bot for cPanel tasks.</li>
-                            <li><strong class="text-indigo-900">AI Content Engine:</strong> Built an AI agent chain for SEO-optimized blog generation.</li>
+                        <p class="text-gray-600 dark:text-gray-400 mb-3 italic">Designed and deployed an internal automation platform using n8n, Python, and AI.</p>
+                        <ul class="list-disc list-outside ml-4 text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                            <li><strong class="text-indigo-900 dark:text-indigo-300">4-Stage HR Pipeline:</strong> Engineered a zero-touch resume screening system using Google Gemini Vision AI.</li>
+                            <li><strong class="text-indigo-900 dark:text-indigo-300">Infrastructure Provisioning:</strong> Deployed a Telegram-triggered admin bot for cPanel tasks.</li>
+                            <li><strong class="text-indigo-900 dark:text-indigo-300">AI Content Engine:</strong> Built an AI agent chain for SEO-optimized blog generation.</li>
                         </ul>
                     </div>
 
                     <!-- Experience Item 2 -->
-                    <div class="relative pl-8 border-l-2 border-indigo-100">
-                        <span class="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-indigo-600 ring-4 ring-white"></span>
+                    <div class="relative pl-8 border-l-2 border-indigo-100 dark:border-indigo-900">
+                        <span class="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-indigo-600 ring-4 ring-white dark:ring-gray-800"></span>
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                            <h4 class="text-lg font-bold text-gray-900">Python Developer & Automation Engineer</h4>
-                            <span class="text-sm font-medium text-gray-500 bg-gray-50 px-2 py-1 rounded">Jul 2024 - Feb 2025</span>
+                            <h4 class="text-lg font-bold text-gray-900 dark:text-white">Python Developer & Automation Engineer</h4>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 px-2 py-1 rounded">Jul 2024 - Feb 2025</span>
                         </div>
-                        <ul class="list-disc list-outside ml-4 text-sm text-gray-700 space-y-2">
-                            <li><strong class="text-indigo-900">API Architecture:</strong> Engineered scalable REST API suite (20+ endpoints) with Flask & JWT.</li>
-                            <li><strong class="text-indigo-900">Database Design:</strong> Optimized SQL query performance by 40% through schema redesign.</li>
-                            <li><strong class="text-indigo-900">Security Engineering:</strong> Developed stealth Windows security app with AES encryption.</li>
+                        <ul class="list-disc list-outside ml-4 text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                            <li><strong class="text-indigo-900 dark:text-indigo-300">API Architecture:</strong> Engineered scalable REST API suite (20+ endpoints) with Flask & JWT.</li>
+                            <li><strong class="text-indigo-900 dark:text-indigo-300">Database Design:</strong> Optimized SQL query performance by 40% through schema redesign.</li>
+                            <li><strong class="text-indigo-900 dark:text-indigo-300">Security Engineering:</strong> Developed stealth Windows security app with AES encryption.</li>
                         </ul>
                     </div>
 
                     <!-- Experience Item 3 -->
                     <div class="relative pl-8 border-l-2 border-transparent">
-                        <span class="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-gray-300 ring-4 ring-white"></span>
+                        <span class="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-gray-300 dark:bg-gray-600 ring-4 ring-white dark:ring-gray-800"></span>
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                            <h4 class="text-lg font-bold text-gray-900">Python Intern</h4>
-                            <span class="text-sm font-medium text-gray-500 bg-gray-50 px-2 py-1 rounded">Jan 2024 - Jun 2024</span>
+                            <h4 class="text-lg font-bold text-gray-900 dark:text-white">Python Intern</h4>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 px-2 py-1 rounded">Jan 2024 - Jun 2024</span>
                         </div>
-                        <ul class="list-disc list-outside ml-4 text-sm text-gray-700 space-y-1">
+                        <ul class="list-disc list-outside ml-4 text-sm text-gray-700 dark:text-gray-300 space-y-1">
                             <li>Contributed to full SDLC and maintained web applications (Python, JS).</li>
                             <li>Supported relational database design and data integrity.</li>
                         </ul>
@@ -229,35 +250,35 @@
 
         <!-- Education & Certifications Section (Vertical Layout) -->
         <section id="education" class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8 font-mono-terminal">Education & Certificates</h2>
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 font-mono-terminal">Education & Certificates</h2>
             
             <div class="space-y-12">
                 
                 <!-- Section 1: Academic Background -->
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-500 uppercase tracking-wider mb-6 border-b pb-2">Academic Background</h3>
+                    <h3 class="text-lg font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-6 border-b dark:border-gray-700 pb-2">Academic Background</h3>
                     <div class="grid md:grid-cols-2 gap-6">
                         <!-- Master's -->
-                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-start space-x-4">
-                            <div class="flex-shrink-0 bg-indigo-50 rounded-lg p-3 text-indigo-600">
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-start space-x-4 transition-colors">
+                            <div class="flex-shrink-0 bg-indigo-50 dark:bg-indigo-900/50 rounded-lg p-3 text-indigo-600 dark:text-indigo-400">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900 text-lg">Master in Computer Application (MCA)</h4>
-                                <p class="text-gray-600">LDRP Institute of Technology and Research</p>
-                                <p class="text-sm text-gray-500 mt-1">Graduated 2024 · <span class="font-medium text-gray-700">CGPA: 7.14</span></p>
+                                <h4 class="font-bold text-gray-900 dark:text-white text-lg">Master in Computer Application (MCA)</h4>
+                                <p class="text-gray-600 dark:text-gray-300">LDRP Institute of Technology and Research</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Graduated 2024 · <span class="font-medium text-gray-700 dark:text-gray-200">CGPA: 7.14</span></p>
                             </div>
                         </div>
 
                         <!-- Bachelor's -->
-                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-start space-x-4">
-                            <div class="flex-shrink-0 bg-indigo-50 rounded-lg p-3 text-indigo-600">
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-start space-x-4 transition-colors">
+                            <div class="flex-shrink-0 bg-indigo-50 dark:bg-indigo-900/50 rounded-lg p-3 text-indigo-600 dark:text-indigo-400">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900 text-lg">B.Sc. B.Ed. in Mathematics</h4>
-                                <p class="text-gray-600">Indian Institute of Teacher Education</p>
-                                <p class="text-sm text-gray-500 mt-1">Graduated 2022 · <span class="font-medium text-gray-700">CGPA: 6.98</span></p>
+                                <h4 class="font-bold text-gray-900 dark:text-white text-lg">B.Sc. B.Ed. in Mathematics</h4>
+                                <p class="text-gray-600 dark:text-gray-300">Indian Institute of Teacher Education</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Graduated 2022 · <span class="font-medium text-gray-700 dark:text-gray-200">CGPA: 6.98</span></p>
                             </div>
                         </div>
                     </div>
@@ -265,12 +286,12 @@
 
                 <!-- Section 2: Professional Certifications & Honors -->
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-500 uppercase tracking-wider mb-6 border-b pb-2">Professional Certifications & Honors</h3>
-                    <p class="text-sm text-gray-500 mb-4">Click on any certificate to view details.</p>
+                    <h3 class="text-lg font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-6 border-b dark:border-gray-700 pb-2">Professional Certifications & Honors</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Click on any certificate to view details.</p>
                     
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <!-- 1. Star Employee (Clickable, No Yellow Border) -->
-                        <div class="cert-card bg-gradient-to-r from-indigo-600 to-purple-600 p-6 rounded-xl shadow-md text-white hover:shadow-xl transform hover:-translate-y-1 transition-all" data-cert-id="1">
+                        <div class="cert-card bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-700 dark:to-purple-700 p-6 rounded-xl shadow-md text-white hover:shadow-xl transform hover:-translate-y-1 transition-all" data-cert-id="1">
                             <div class="flex items-center mb-2">
                                 <span class="text-2xl mr-3">🏆</span>
                                 <h4 class="font-bold text-lg">Star Employee of the Year (2024)</h4>
@@ -279,21 +300,21 @@
                         </div>
 
                         <!-- 2. Accelerate App Development (Clickable) -->
-                        <div class="cert-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-400 hover:shadow-lg transform hover:-translate-y-1 transition-all" data-cert-id="2">
-                            <h4 class="font-bold text-gray-900 text-lg">Accelerate App Development with Gemini CLI</h4>
-                            <p class="text-indigo-600 text-sm font-medium mb-1">Coursera · Dec 2025</p>
-                            <p class="text-sm text-gray-600">Google Cloud Training</p>
+                        <div class="cert-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border-l-4 border-blue-400 dark:border-blue-500 hover:shadow-lg transform hover:-translate-y-1 transition-all" data-cert-id="2">
+                            <h4 class="font-bold text-gray-900 dark:text-white text-lg">Accelerate App Development with Gemini CLI</h4>
+                            <p class="text-indigo-600 dark:text-indigo-400 text-sm font-medium mb-1">Coursera · Dec 2025</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Google Cloud Training</p>
                         </div>
 
                         <!-- 3. Gemini Learning Path (Clickable) -->
-                        <div class="cert-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-indigo-500 hover:shadow-lg transform hover:-translate-y-1 transition-all" data-cert-id="3">
+                        <div class="cert-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border-l-4 border-indigo-500 dark:border-indigo-400 hover:shadow-lg transform hover:-translate-y-1 transition-all" data-cert-id="3">
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <h4 class="font-bold text-gray-900 text-lg">Gemini for Google Cloud Learning Path</h4>
-                                    <p class="text-indigo-600 text-sm font-medium mb-2">Coursera · Dec 2025</p>
+                                    <h4 class="font-bold text-gray-900 dark:text-white text-lg">Gemini for Google Cloud Learning Path</h4>
+                                    <p class="text-indigo-600 dark:text-indigo-400 text-sm font-medium mb-2">Coursera · Dec 2025</p>
                                 </div>
                             </div>
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium inline-block mb-2">Specialization Completed</span>
+                            <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs px-2 py-1 rounded-full font-medium inline-block mb-2">Specialization Completed</span>
                         </div>
                     </div>
                 </div>
@@ -304,14 +325,14 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-12">
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12 transition-colors duration-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
-                    <span class="text-lg font-bold text-gray-900 font-mono-terminal">Kishan Khodbhaya</span>
-                    <p class="text-sm text-gray-500">AI Automation Architect & Full-Stack Engineer</p>
+                    <span class="text-lg font-bold text-gray-900 dark:text-white font-mono-terminal">Kishan Khodbhaya</span>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">AI Automation Architect & Full-Stack Engineer</p>
                 </div>
-                <div class="text-sm text-gray-500">
+                <div class="text-sm text-gray-500 dark:text-gray-400">
                     &copy; 2025 Portfolio. Built with Tailwind CSS & Gemini.
                 </div>
             </div>
@@ -319,34 +340,34 @@
     </footer>
 
     <!-- Universal Modal (Used for both Projects and Certs) -->
-    <div id="modal" class="hidden fixed inset-0 z-50 bg-gray-900 bg-opacity-60 backdrop-blur-sm p-4 md:p-8 flex items-center justify-center">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[85vh] flex flex-col transform transition-all">
+    <div id="modal" class="hidden fixed inset-0 z-50 bg-gray-900/60 dark:bg-black/80 backdrop-blur-sm p-4 md:p-8 flex items-center justify-center">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[85vh] flex flex-col transform transition-all border dark:border-gray-700">
             <!-- Modal Header -->
-            <div class="flex justify-between items-start p-6 border-b border-gray-100">
+            <div class="flex justify-between items-start p-6 border-b border-gray-100 dark:border-gray-700">
                 <div>
-                    <h3 id="modal-title" class="text-2xl font-bold text-gray-900 font-mono-terminal"></h3>
-                    <p id="modal-subtitle" class="text-sm text-indigo-600 font-medium mt-1"></p>
+                    <h3 id="modal-title" class="text-2xl font-bold text-gray-900 dark:text-white font-mono-terminal"></h3>
+                    <p id="modal-subtitle" class="text-sm text-indigo-600 dark:text-indigo-400 font-medium mt-1"></p>
                 </div>
-                <button id="modal-close-btn" class="text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-100 p-2 rounded-full transition-colors">
+                <button id="modal-close-btn" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 p-2 rounded-full transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             <!-- Modal Content -->
             <div id="modal-content" class="p-8 overflow-y-auto">
                 <div class="mb-6">
-                    <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">Overview</h4>
-                    <div id="modal-description" class="text-gray-700 space-y-4 leading-relaxed"></div>
+                    <h4 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Overview</h4>
+                    <div id="modal-description" class="text-gray-700 dark:text-gray-300 space-y-4 leading-relaxed"></div>
                 </div>
                 
-                <div id="modal-features-container" class="hidden mb-6 bg-gray-50 p-5 rounded-xl border border-gray-100">
-                    <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-3 flex items-center">
+                <div id="modal-features-container" class="hidden mb-6 bg-gray-50 dark:bg-gray-700/30 p-5 rounded-xl border border-gray-100 dark:border-gray-600">
+                    <h4 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wide mb-3 flex items-center">
                         <span class="mr-2 text-lg">🚀</span> Key Details
                     </h4>
-                    <div id="modal-features" class="text-sm text-gray-700 space-y-2"></div>
+                    <div id="modal-features" class="text-sm text-gray-700 dark:text-gray-300 space-y-2"></div>
                 </div>
 
                 <div>
-                    <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">Skills & Technologies</h4>
+                    <h4 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Skills & Technologies</h4>
                     <div id="modal-skills" class="flex flex-wrap gap-2"></div>
                 </div>
             </div>
@@ -354,6 +375,85 @@
     </div>
 
     <script>
+        // --- Dark Mode Logic ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        const themeToggleBtnMobile = document.getElementById('theme-toggle-mobile');
+        const themeToggleDarkIconMobile = document.getElementById('theme-toggle-dark-icon-mobile');
+        const themeToggleLightIconMobile = document.getElementById('theme-toggle-light-icon-mobile');
+
+        // 1. Initial Load: Check localStorage or System Preference
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+            if(themeToggleLightIconMobile) themeToggleLightIconMobile.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleDarkIcon.classList.remove('hidden');
+            if(themeToggleDarkIconMobile) themeToggleDarkIconMobile.classList.remove('hidden');
+        }
+
+        // 2. Real-time System Theme Listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            // Only update if the user hasn't manually overridden the setting via localStorage
+            if (!localStorage.getItem('color-theme')) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark');
+                    // Update icons
+                    themeToggleLightIcon.classList.remove('hidden');
+                    themeToggleDarkIcon.classList.add('hidden');
+                    if(themeToggleLightIconMobile) {
+                        themeToggleLightIconMobile.classList.remove('hidden');
+                        themeToggleDarkIconMobile.classList.add('hidden');
+                    }
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    // Update icons
+                    themeToggleDarkIcon.classList.remove('hidden');
+                    themeToggleLightIcon.classList.add('hidden');
+                    if(themeToggleDarkIconMobile) {
+                        themeToggleDarkIconMobile.classList.remove('hidden');
+                        themeToggleLightIconMobile.classList.add('hidden');
+                    }
+                }
+            }
+        });
+
+        // 3. Manual Toggle Logic
+        function toggleTheme() {
+            // Toggle icons
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+            if(themeToggleDarkIconMobile) themeToggleDarkIconMobile.classList.toggle('hidden');
+            if(themeToggleLightIconMobile) themeToggleLightIconMobile.classList.toggle('hidden');
+
+            // Set theme and save preference
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        if(themeToggleBtnMobile) themeToggleBtnMobile.addEventListener('click', toggleTheme);
+
+
+        // --- Portfolio Data & Logic ---
+
         const projectData = [
             {
                 id: 1,
@@ -622,16 +722,16 @@
                     
                     if(isVisible) {
                         const card = document.createElement('div');
-                        card.className = `project-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all group`;
+                        card.className = `project-card bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all group`;
                         card.setAttribute('data-project-id', project.id);
                         
                         card.innerHTML = `
-                            <div class="h-2 bg-indigo-600 w-full group-hover:bg-indigo-500 transition-colors"></div>
+                            <div class="h-2 bg-indigo-600 dark:bg-indigo-500 w-full group-hover:bg-indigo-500 dark:group-hover:bg-indigo-400 transition-colors"></div>
                             <div class="p-6">
-                                <h3 class="font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">${project.title}</h3>
-                                <p class="text-sm text-gray-600 line-clamp-3 mb-4 leading-relaxed">${project.summary}</p>
+                                <h3 class="font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">${project.title}</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed">${project.summary}</p>
                                 <div class="flex flex-wrap gap-2">
-                                    ${project.categories.map(cat => `<span class="text-xs font-semibold text-gray-600 bg-gray-100 px-2 py-1 rounded-md uppercase tracking-wide border border-gray-200">${getCategoryName(cat)}</span>`).join('')}
+                                    ${project.categories.map(cat => `<span class="text-xs font-semibold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-md uppercase tracking-wide border border-gray-200 dark:border-gray-600">${getCategoryName(cat)}</span>`).join('')}
                                 </div>
                             </div>
                         `;
@@ -672,13 +772,13 @@
                 // Features Logic (Only for projects mostly, but keeping check generic)
                 if (data.features && data.features.length > 0) {
                     modalFeaturesContainer.classList.remove('hidden');
-                    modalFeatures.innerHTML = data.features.map(f => `<p class="flex items-start"><span class="text-indigo-500 mr-2 mt-1">▪</span><span>${f}</span></p>`).join('');
+                    modalFeatures.innerHTML = data.features.map(f => `<p class="flex items-start"><span class="text-indigo-500 dark:text-indigo-400 mr-2 mt-1">▪</span><span>${f}</span></p>`).join('');
                 } else {
                     modalFeaturesContainer.classList.add('hidden');
                 }
 
                 modalSkills.innerHTML = data.skills.map(skill => 
-                    `<span class="text-xs font-semibold text-indigo-800 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-100 font-mono-terminal">${skill}</span>`
+                    `<span class="text-xs font-semibold text-indigo-800 dark:text-indigo-200 bg-indigo-50 dark:bg-indigo-900/50 px-3 py-1.5 rounded-full border border-indigo-100 dark:border-indigo-800 font-mono-terminal">${skill}</span>`
                 ).join('');
                 
                 modal.classList.remove('hidden');
@@ -701,11 +801,11 @@
                     filterContainer.querySelectorAll('.skill-btn').forEach(btn => {
                         btn.classList.remove('active');
                         // Reset to default styles when inactive
-                        btn.classList.add('bg-white', 'text-gray-700');
+                        btn.classList.add('bg-white', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-200');
                     });
                     
                     e.target.classList.add('active');
-                    e.target.classList.remove('bg-white', 'text-gray-700'); // Remove base classes so active CSS wins
+                    e.target.classList.remove('bg-white', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-200'); // Remove base classes so active CSS wins
                     
                     renderProjects(activeFilter);
                 }
