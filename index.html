@@ -3,48 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kishan Khodbhaya - Application Security Portfolio</title>
-    <!-- Chosen Palette: Warm Neutrals (bg-stone-100, bg-white) with a professional blue/indigo accent (text-indigo-600, border-indigo-500) -->
-    <!-- Application Structure Plan: Designed a "Filterable Portfolio Dashboard." A sticky nav links to sections. The core is an interactive "Skill Explorer" (HTML/JS buttons) with categories: AI/Automation, Project Management, Full-Stack/DevOps, and Security. Clicking a category button filters a responsive grid of "Project Cards." Clicking a project card opens a modal (HTML/JS toggle) with its full details. This structure is superior to a linear report because it allows recruiters to instantly find relevant projects matching their needs, rather than manually scanning all 13. An Experience Timeline and Education section provide context. -->
-    <!-- Visualization & Content Choices:
-    * Portfolio (13 projects): Goal: Organize & Explore. Method: HTML/Tailwind grid of cards. Interaction: JS onclick to toggle a modal display (display: 'flex'/'none') for project details. JS onclick on skill buttons will filter this grid by adding/removing a 'hidden' class based on data-category attributes on the cards. Justification: Manages a large amount of text by hiding details until requested.
-    * Skills (Personal Summary): Goal: Inform & Navigate. Method: HTML/Tailwind buttons grouped by theme. Interaction: JS onclick to set the active filter, update button styles, and trigger the project filter logic. Justification: Transforms a static list into the application's primary navigation/filter.
-    * Experience (4 roles): Goal: Inform (chronology). Method: Vertical timeline using HTML/Tailwind (divs with borders). No complex charts needed. Interaction: Simple, static text. Justification: A timeline is the clearest way to show career progression.
-    * No charts: The report contains no quantitative data suitable for Chart.js. The focus is on textual projects and skills.
-    * Icons: Will use simple Unicode/HTML icons (e.g., '→', '★', '►') to add visual appeal without SVG.
-    * CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>Kishan Khodbhaya - AI Automation Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap'); /* Added terminal font */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8f7f5;
             color: #1f2937;
         }
-        /* Custom class for terminal font */
         .font-mono-terminal {
             font-family: 'Roboto Mono', monospace;
         }
+        /* Active State Styles - Forced with !important to prevent overrides */
         .skill-btn.active {
-            background-color: #4f46e5;
-            color: #ffffff;
+            background-color: #4f46e5 !important;
+            color: #ffffff !important;
+            border-color: #4f46e5 !important;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
         .skill-btn {
             transition: all 0.2s ease-in-out;
         }
-        .project-card {
+        .project-card, .cert-card {
             transition: all 0.3s ease-in-out;
+            cursor: pointer;
         }
         .project-card.hidden {
-            transform: scale(0.9);
-            opacity: 0;
             display: none;
-        }
-        #project-modal {
-            transition: opacity 0.3s ease-in-out;
         }
         /* Custom scrollbar for modal */
         #modal-content::-webkit-scrollbar {
@@ -63,27 +51,27 @@
         }
     </style>
 </head>
-<body class="bg-stone-100">
+<body class="bg-stone-50">
 
     <!-- Header & Navigation -->
     <nav class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex-shrink-0 flex items-center">
-                    <h1 class="text-xl font-bold text-indigo-600 font-mono-terminal">Kishan Khodbhaya</h1> <!-- Added font -->
+                    <h1 class="text-xl font-bold text-indigo-600 font-mono-terminal">Kishan Khodbhaya</h1>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a href="#about" class="text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium">About</a>
-                    <a href="#skills" class="text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium">Skills & Projects</a>
-                    <a href="#experience" class="text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium">Experience</a>
-                    <a href="#education" class="text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium">Education</a>
+                    <a href="#about" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">About</a>
+                    <a href="#skills" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">Projects</a>
+                    <a href="#experience" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">Experience</a>
+                    <a href="#education" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">Credentials</a>
                 </div>
                 <div class="sm:hidden flex items-center">
-                    <select id="mobile-nav" class="text-gray-500 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <select id="mobile-nav" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                         <option value="#about">About</option>
-                        <option value="#skills">Skills & Projects</option>
+                        <option value="#skills">Projects</option>
                         <option value="#experience">Experience</option>
-                        <option value="#education">Education</option>
+                        <option value="#education">Credentials</option>
                     </select>
                 </div>
             </div>
@@ -94,357 +82,518 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         <!-- Hero / About Section -->
-        <section id="about" class="bg-white rounded-lg shadow-md p-6 md:p-8 mb-12">
-            <div class="flex flex-col md:flex-row md:items-center justify-between">
-                <div>
-                    <h2 class="text-3xl font-bold text-gray-900 font-mono-terminal">Kishan Khodbhaya</h2> <!-- Added font -->
-                    <p class="mt-1 text-lg font-medium text-indigo-600 font-mono-terminal">Application Security Engineer | API Penetration Tester | Python & Automation</p> <!-- Added font -->
-                    <div class="mt-4 flex flex-wrap gap-4 text-sm">
-                        <a href="mailto:Khodbhaya1843@gmail.com" class="text-gray-600 hover:text-indigo-600">Khodbhaya1843@gmail.com</a>
-                        <span class="text-gray-300">|</span>
-                        <a href="https://www.linkedin.com/in/kishan-khodbhaya" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-indigo-600">LinkedIn Profile</a>
-                        <span class="text-gray-300">|</span>
-                        <span class="text-gray-600">+91 88498 14384</span>
+        <section id="about" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-16 relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-indigo-50 rounded-full blur-2xl"></div>
+            
+            <div class="flex flex-col md:flex-row md:items-start justify-between relative z-10">
+                <div class="md:w-3/4">
+                    <h2 class="text-4xl font-bold text-gray-900 tracking-tight font-mono-terminal">Kishan Khodbhaya</h2>
+                    <p class="mt-3 text-xl font-medium text-indigo-600 font-mono-terminal">AI Automation Architect | Workflow Orchestration & Google Gemini Specialist</p>
+                    <div class="mt-6 flex flex-wrap gap-6 text-sm font-medium text-gray-600">
+                        <a href="mailto:Khodbhaya1843@gmail.com" class="flex items-center hover:text-indigo-600 transition-colors">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            Khodbhaya1843@gmail.com
+                        </a>
+                        <a href="https://www.linkedin.com/in/kishan-khodbhaya" target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-indigo-600 transition-colors">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            LinkedIn Profile
+                        </a>
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            +91 88498 14384
+                        </span>
                     </div>
                 </div>
-                <div class="mt-6 md:mt-0 md:ml-6 flex-shrink-0">
-                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg">
-                        <h3 class="text-sm font-semibold text-indigo-800 font-mono-terminal">★ Star Employee of the Year (2024)</h3> <!-- Added font -->
-                        <p class="text-sm text-indigo-700">Awarded at Vedikin Solutions for the "ENC App"</p>
+                <div class="mt-8 md:mt-0">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm font-semibold shadow-sm">
+                        <span class="mr-2">★</span> Star Employee of the Year (2024)
                     </div>
                 </div>
             </div>
             
-            <p class="mt-6 text-gray-700 leading-relaxed">
-                Award-winning engineer specializing in application security, API testing, and process automation. I leverage a 'builder's' background in full-stack development (Python, Flask, SQL) and DevOps (Ubuntu, Nginx) to find and fix vulnerabilities that others miss.
-            </p>
-            <p class="mt-4 text-gray-700 leading-relaxed">
-                My hands-on experience includes:
-            </p>
-            <ul class="mt-4 list-disc list-outside text-gray-700 pl-5 space-y-2">
-                <li><strong>Security Development:</strong> Architecting a Windows security utility with military-grade AES encryption and forensic data-wiping (awarded "Star Employee of the Year").</li>
-                <li><strong>API Architecture:</strong> Designing, building, and securing a suite of 20+ RESTful APIs using JWT authentication and a normalized SQL backend to ensure data integrity.</li>
-                <li><strong>DevSecOps:</strong> Deploying and hardening production Ubuntu servers, configuring Nginx, Gunicorn, and Cloudflare security rules to protect 6+ live applications.</li>
-                <li><strong>Security Automation:</strong> Using Python, n8n, and Selenium to automate security workflows, credential management, and vulnerability checks.</li>
-            </ul>
-            <p class="mt-4 text-gray-700 leading-relaxed">
-                I thrive on threat modeling, API penetration testing, and building secure-by-design systems. I am seeking a role where I can apply my "builder-as-breaker" mindset to protect critical applications and infrastructure.
-            </p>
+            <div class="mt-8 text-gray-600 leading-relaxed space-y-4 max-w-4xl">
+                <p>
+                    I am an <strong>AI Automation Architect and Workflow Orchestration Specialist</strong> focused on architecting and deploying Intelligent Automation solutions that deliver measurable ROI and eliminate manual work. My core strength is blending advanced Generative AI tools (Google Gemini, n8n) with robust backend development (Python, Flask) to create scalable, zero-touch business systems across the Google Cloud ecosystem.
+                </p>
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <h4 class="font-semibold text-gray-900 mb-2">AI Agent Orchestration</h4>
+                        <p class="text-sm">Architecting full-stack autonomous systems (ChatOps, Voice Agents) integrating Twilio, ElevenLabs, and Mattermost.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <h4 class="font-semibold text-gray-900 mb-2">System Architecture</h4>
+                        <p class="text-sm">Designing high-performance RESTful APIs (Python, Flask) and robust production environments (Ubuntu, Nginx).</p>
+                    </div>
+                </div>
+                <p class="mt-4 pt-4 border-t border-gray-100">
+                    <strong class="text-gray-900">Core Competencies & Technology Stack:</strong> n8n, Google Gemini, Python, Flask, Ubuntu, DevOps, API Architecture, Data Integrity, ROI Analysis, Selenium.
+                </p>
+            </div>
         </section>
 
         <!-- Skills & Projects Section -->
-        <section id="skills" class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-2 font-mono-terminal">Interactive Project Portfolio</h2> <!-- Added font -->
-            <p class="text-gray-600 mb-6">My skills are focused on four key areas. Click a category below to filter the 13 projects I've built and see my experience in action.</p>
+        <section id="skills" class="mb-16">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 font-mono-terminal">Strategic Engineering Initiatives</h2>
+                    <p class="mt-2 text-gray-600">Select a category to explore my technical implementations.</p>
+                </div>
+            </div>
             
             <!-- Skill Filter Buttons -->
             <div id="skill-filter-container" class="flex flex-wrap gap-3 mb-8">
-                <button data-filter="all" class="skill-btn active text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50">
-                    All Projects (13)
+                <!-- Featured (New Category) -->
+                <button data-filter="featured" class="skill-btn active text-sm font-medium py-2.5 px-5 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-700">
+                    ★ Featured
                 </button>
-                <button data-filter="ai-automation" class="skill-btn text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50">
-                    AI & Automation (8)
+                <button data-filter="all" class="skill-btn text-sm font-medium py-2.5 px-5 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-700">
+                    All Projects
                 </button>
-                <button data-filter="full-stack-devops" class="skill-btn text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50">
-                    Full-Stack & DevOps (5)
+                <button data-filter="ai-automation" class="skill-btn text-sm font-medium py-2.5 px-5 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-700">
+                    AI & Automation
                 </button>
-                <button data-filter="project-management" class="skill-btn text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50">
-                    Project Management (2)
+                <button data-filter="full-stack-devops" class="skill-btn text-sm font-medium py-2.5 px-5 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-700">
+                    Full-Stack & DevOps
                 </button>
-                <button data-filter="security" class="skill-btn text-sm font-medium py-2 px-4 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50">
-                    Security (2)
+                <button data-filter="security" class="skill-btn text-sm font-medium py-2.5 px-5 rounded-full bg-white shadow-sm border border-gray-200 hover:bg-gray-50 text-gray-700">
+                    Security
                 </button>
             </div>
 
             <!-- Project Grid -->
-            <p class="text-gray-600 mb-6">Showing <span id="project-count" class="font-semibold text-gray-900">13</span> projects. Click any card to see the full details.</p>
             <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Project cards will be dynamically inserted here by JavaScript -->
             </div>
+            <p class="text-right mt-4 text-sm text-gray-500">Showing <span id="project-count" class="font-medium text-gray-900"></span> projects</p>
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6 font-mono-terminal">Professional Experience</h2> <!-- Added font -->
-            <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
-                <h3 class="text-xl font-semibold text-gray-800">Vedikin Solutions</h3>
-                <p class="text-indigo-600 font-medium text-sm mb-6">1 yr 10 mos total (Jan 2024 - Present)</p>
+        <section id="experience" class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 font-mono-terminal">Professional Experience</h2>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="p-8 border-b border-gray-100 bg-gray-50 flex flex-col md:flex-row justify-between md:items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900">VedikIn Solutions</h3>
+                        <p class="text-indigo-600 font-medium">Gandhinagar, Gujarat, India</p>
+                    </div>
+                    <div class="mt-2 md:mt-0 px-3 py-1 bg-white rounded-full border border-gray-200 text-sm font-medium text-gray-600 shadow-sm">
+                        Jan 2024 - Nov 2025
+                    </div>
+                </div>
                 
-                <div class="relative border-l-2 border-indigo-200 pl-6 space-y-8">
+                <div class="p-8 space-y-12">
                     <!-- Experience Item 1 -->
-                    <div class="relative">
-                        <span class="absolute -left-8 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-600 ring-4 ring-white"></span>
-                        <h4 class="font-semibold text-gray-900">Automation Specialist</h4>
-                        <p class="text-sm text-gray-500">Aug 2024 - Present</p>
-                        <ul class="mt-2 list-disc list-outside text-gray-700 text-sm pl-5 space-y-1">
-                            <li>Designed and deployed an internal automation platform (n8n, Python, AI) to automate key business processes.</li>
-                            <li>Engineered a zero-touch 4-Stage HR Pipeline using Gemini Vision AI to screen and schedule candidates.</li>
-                            <li>Built an AI agent chain to automatically generate full-length, SEO-optimized blog articles.</li>
+                    <div class="relative pl-8 border-l-2 border-indigo-100">
+                        <span class="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-indigo-600 ring-4 ring-white"></span>
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                            <h4 class="text-lg font-bold text-gray-900">Automation Specialist</h4>
+                            <span class="text-sm font-medium text-gray-500 bg-gray-50 px-2 py-1 rounded">Aug 2024 - Nov 2025</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 italic">Designed and deployed an internal automation platform using n8n, Python, and AI.</p>
+                        <ul class="list-disc list-outside ml-4 text-sm text-gray-700 space-y-2">
+                            <li><strong class="text-indigo-900">4-Stage HR Pipeline:</strong> Engineered a zero-touch resume screening system using Google Gemini Vision AI.</li>
+                            <li><strong class="text-indigo-900">Infrastructure Provisioning:</strong> Deployed a Telegram-triggered admin bot for cPanel tasks.</li>
+                            <li><strong class="text-indigo-900">AI Content Engine:</strong> Built an AI agent chain for SEO-optimized blog generation.</li>
                         </ul>
                     </div>
+
                     <!-- Experience Item 2 -->
-                    <div class="relative">
-                        <span class="absolute -left-8 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-600 ring-4 ring-white"></span>
-                        <h4 class="font-semibold text-gray-900">Technical Project Manager</h4>
-                        <p class="text-sm text-gray-500">Apr 2025 - Oct 2025</p>
-                        <ul class="mt-2 list-disc list-outside text-gray-700 text-sm pl-5 space-y-1">
-                            <li>Orchestrated a cross-functional team of developers, designers, and AI engineers.</li>
-                            <li>Revitalized a mission-critical UK e-commerce platform, resolving 18% of high-priority bugs in 30 days.</li>
-                            <li>Led a 4-person team to ship 40% of an internal PM tool's core features within 2 weeks.</li>
-                            <li>Directed architecture planning, code reviews, and production deployments.</li>
+                    <div class="relative pl-8 border-l-2 border-indigo-100">
+                        <span class="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-indigo-600 ring-4 ring-white"></span>
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                            <h4 class="text-lg font-bold text-gray-900">Python Developer & Automation Engineer</h4>
+                            <span class="text-sm font-medium text-gray-500 bg-gray-50 px-2 py-1 rounded">Jul 2024 - Feb 2025</span>
+                        </div>
+                        <ul class="list-disc list-outside ml-4 text-sm text-gray-700 space-y-2">
+                            <li><strong class="text-indigo-900">API Architecture:</strong> Engineered scalable REST API suite (20+ endpoints) with Flask & JWT.</li>
+                            <li><strong class="text-indigo-900">Database Design:</strong> Optimized SQL query performance by 40% through schema redesign.</li>
+                            <li><strong class="text-indigo-900">Security Engineering:</strong> Developed stealth Windows security app with AES encryption.</li>
                         </ul>
                     </div>
+
                     <!-- Experience Item 3 -->
-                    <div class="relative">
-                        <span class="absolute -left-8 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-600 ring-4 ring-white"></span>
-                        <h4 class="font-semibold text-gray-900">Python Developer Automation Engineer</h4>
-                        <p class="text-sm text-gray-500">Jul 2024 - Oct 2025</p>
-                        <ul class="mt-2 list-disc list-outside text-gray-700 text-sm pl-5 space-y-1">
-                            <li>Engineered a scalable REST API Suite (20+ endpoints) with Flask and JWT.</li>
-                            <li>Designed a SQL database from scratch, optimizing query performance by 40%.</li>
-                            <li>Developed a stealth Windows security app with military-grade AES encryption and a multi-pass file wiper.</li>
-                            <li>Built a zero-intervention algorithmic trading bot using the Upstox API.</li>
-                        </ul>
-                    </div>
-                    <!-- Experience Item 4 -->
-                    <div class="relative">
-                        <span class="absolute -left-8 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-600 ring-4 ring-white"></span>
-                        <h4 class="font-semibold text-gray-900">Python Intern</h4>
-                        <p class="text-sm text-gray-500">Jan 2024 - Jun 2024</p>
-                        <ul class="mt-2 list-disc list-outside text-gray-700 text-sm pl-5 space-y-1">
-                            <li>Contributed to the full software development lifecycle.</li>
-                            <li>Assisted in developing and maintaining web applications (Python, JavaScript).</li>
-                            <li>Supported relational database design and maintenance.</li>
+                    <div class="relative pl-8 border-l-2 border-transparent">
+                        <span class="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-gray-300 ring-4 ring-white"></span>
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                            <h4 class="text-lg font-bold text-gray-900">Python Intern</h4>
+                            <span class="text-sm font-medium text-gray-500 bg-gray-50 px-2 py-1 rounded">Jan 2024 - Jun 2024</span>
+                        </div>
+                        <ul class="list-disc list-outside ml-4 text-sm text-gray-700 space-y-1">
+                            <li>Contributed to full SDLC and maintained web applications (Python, JS).</li>
+                            <li>Supported relational database design and data integrity.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Education Section -->
+        <!-- Education & Certifications Section (Vertical Layout) -->
         <section id="education" class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6 font-mono-terminal">Education & Honors</h2> <!-- Added font -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Education 1 -->
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h4 class="font-semibold text-gray-900">Master in Computer Application (MCA)</h4>
-                    <p class="text-sm text-gray-600">LDRP Institute of Technology and Research</p>
-                    <p class="text-sm text-gray-500">Graduated: 2024 (CGPA: 7.14)</p>
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 font-mono-terminal">Education & Certificates</h2>
+            
+            <div class="space-y-12">
+                
+                <!-- Section 1: Academic Background -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-500 uppercase tracking-wider mb-6 border-b pb-2">Academic Background</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Master's -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-start space-x-4">
+                            <div class="flex-shrink-0 bg-indigo-50 rounded-lg p-3 text-indigo-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">Master in Computer Application (MCA)</h4>
+                                <p class="text-gray-600">LDRP Institute of Technology and Research</p>
+                                <p class="text-sm text-gray-500 mt-1">Graduated 2024 · <span class="font-medium text-gray-700">CGPA: 7.14</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Bachelor's -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-start space-x-4">
+                            <div class="flex-shrink-0 bg-indigo-50 rounded-lg p-3 text-indigo-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">B.Sc. B.Ed. in Mathematics</h4>
+                                <p class="text-gray-600">Indian Institute of Teacher Education</p>
+                                <p class="text-sm text-gray-500 mt-1">Graduated 2022 · <span class="font-medium text-gray-700">CGPA: 6.98</span></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- Education 2 -->
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h4 class="font-semibold text-gray-900">B.Sc. B.Ed. in Mathematics</h4>
-                    <p class="text-sm text-gray-600">Indian Institute of Teacher Education</p>
-                    <p class="text-sm text-gray-500">Graduated: 2022 (CGPA: 6.98)</p>
+
+                <!-- Section 2: Professional Certifications & Honors -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-500 uppercase tracking-wider mb-6 border-b pb-2">Professional Certifications & Honors</h3>
+                    <p class="text-sm text-gray-500 mb-4">Click on any certificate to view details.</p>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- 1. Star Employee (Clickable, No Yellow Border) -->
+                        <div class="cert-card bg-gradient-to-r from-indigo-600 to-purple-600 p-6 rounded-xl shadow-md text-white hover:shadow-xl transform hover:-translate-y-1 transition-all" data-cert-id="1">
+                            <div class="flex items-center mb-2">
+                                <span class="text-2xl mr-3">🏆</span>
+                                <h4 class="font-bold text-lg">Star Employee of the Year (2024)</h4>
+                            </div>
+                            <p class="text-indigo-100 text-sm">Awarded at VedikIn Solutions</p>
+                        </div>
+
+                        <!-- 2. Accelerate App Development (Clickable) -->
+                        <div class="cert-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-400 hover:shadow-lg transform hover:-translate-y-1 transition-all" data-cert-id="2">
+                            <h4 class="font-bold text-gray-900 text-lg">Accelerate App Development with Gemini CLI</h4>
+                            <p class="text-indigo-600 text-sm font-medium mb-1">Coursera · Dec 2025</p>
+                            <p class="text-sm text-gray-600">Google Cloud Training</p>
+                        </div>
+
+                        <!-- 3. Gemini Learning Path (Clickable) -->
+                        <div class="cert-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-indigo-500 hover:shadow-lg transform hover:-translate-y-1 transition-all" data-cert-id="3">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-lg">Gemini for Google Cloud Learning Path</h4>
+                                    <p class="text-indigo-600 text-sm font-medium mb-2">Coursera · Dec 2025</p>
+                                </div>
+                            </div>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium inline-block mb-2">Specialization Completed</span>
+                        </div>
+                    </div>
                 </div>
-                <!-- Honor -->
-                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-indigo-500">
-                    <h4 class="font-semibold text-indigo-800 font-mono-terminal">★ Star Employee of the Year (2024)</h4> <!-- Added font -->
-                    <p class="text-sm text-gray-600">Vedikin Solutions</p>
-                    <p class="text-sm text-gray-500">Awarded for the "ENC App"</p>
-                </div>
+
             </div>
         </section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-gray-500">
-            Kishan Khodbhaya | Interactive Portfolio | Built with HTML, Tailwind CSS, and JavaScript
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="text-lg font-bold text-gray-900 font-mono-terminal">Kishan Khodbhaya</span>
+                    <p class="text-sm text-gray-500">AI Automation Architect & Full-Stack Engineer</p>
+                </div>
+                <div class="text-sm text-gray-500">
+                    &copy; 2025 Portfolio. Built with Tailwind CSS & Gemini.
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- Project Modal -->
-    <div id="project-modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-75 backdrop-blur-sm p-4 md:p-8 items-center justify-center" style="display: none;">
-        <div class="bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] flex flex-col">
+    <!-- Universal Modal (Used for both Projects and Certs) -->
+    <div id="modal" class="hidden fixed inset-0 z-50 bg-gray-900 bg-opacity-60 backdrop-blur-sm p-4 md:p-8 flex items-center justify-center">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[85vh] flex flex-col transform transition-all">
             <!-- Modal Header -->
-            <div class="flex justify-between items-center p-5 border-b border-gray-200">
-                <h3 id="modal-title" class="text-xl font-semibold text-gray-900 font-mono-terminal">Project Title</h3> <!-- Added font -->
-                <button id="modal-close-btn" class="text-gray-400 hover:text-gray-600 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <div class="flex justify-between items-start p-6 border-b border-gray-100">
+                <div>
+                    <h3 id="modal-title" class="text-2xl font-bold text-gray-900 font-mono-terminal"></h3>
+                    <p id="modal-subtitle" class="text-sm text-indigo-600 font-medium mt-1"></p>
+                </div>
+                <button id="modal-close-btn" class="text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-100 p-2 rounded-full transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             <!-- Modal Content -->
-            <div id="modal-content" class="p-6 space-y-4 overflow-y-auto">
-                <p id="modal-date" class="text-sm text-indigo-600 font-medium"></p>
-                <div id="modal-description" class="text-gray-700 space-y-3"></div>
-                <div id="modal-skills" class="flex flex-wrap gap-2"></div>
+            <div id="modal-content" class="p-8 overflow-y-auto">
+                <div class="mb-6">
+                    <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">Overview</h4>
+                    <div id="modal-description" class="text-gray-700 space-y-4 leading-relaxed"></div>
+                </div>
+                
+                <div id="modal-features-container" class="hidden mb-6 bg-gray-50 p-5 rounded-xl border border-gray-100">
+                    <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-3 flex items-center">
+                        <span class="mr-2 text-lg">🚀</span> Key Details
+                    </h4>
+                    <div id="modal-features" class="text-sm text-gray-700 space-y-2"></div>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">Skills & Technologies</h4>
+                    <div id="modal-skills" class="flex flex-wrap gap-2"></div>
+                </div>
             </div>
         </div>
     </div>
-
 
     <script>
         const projectData = [
             {
                 id: 1,
-                title: "AI Voice Agent - Autonomous Client Communication System",
-                date: "September 2025 - Present",
-                categories: ["ai-automation"],
-                summary: "Developed an AI-powered voice agent (Twilio, Exotel, ElevenLabs, n8n) for automated client interactions.",
+                title: "VBA Data Flow Engine: Architectural Automation",
+                date: "Nov 2025",
+                categories: ["ai-automation", "featured"],
+                summary: "Multi-stage VBA Macro Suite to automate complex data handling for operational reporting.",
                 description: [
-                    "Developed an AI-powered voice agent (Twilio, Exotel, ElevenLabs, n8n) for automated client interactions.",
-                    "<strong>Outbound AI Agent (Client Acquisition):</strong> Used Twilio for global calls and ElevenLabs for voice synthesis. Interacted with clients to gather project requirements and budget, qualified leads, and sent automated email/WhatsApp follow-ups.",
-                    "<strong>Inbound AI Agent (Appointment Scheduler):</strong> Used Exotel for inbound calls. Functioned as a virtual receptionist to check team availability, book appointments, create Google Meet links, and send confirmations."
+                    "Architected and deployed a multi-stage VBA Macro Suite to automate complex, rule-based data handling for operational reporting. This solution acts as a crucial data flow engine, enforcing strict data integrity rules and eliminating thousands of hours of manual work by integrating Excel with Microsoft Word for final document generation."
                 ],
-                skills: ["Twilio", "ElevenLabs", "N8n", "Google Gemini", "Google Sheets", "Google Calendar", "Google Meet", "Al voice training", "Client Communication", "Exotel"]
+                features: [
+                    "<strong>External Data Ingestion & Transformation:</strong> Engineered a high-speed, rule-based routine to process raw external files, import data blocks, and apply real-time formula recalculation and repair (R1C1 logic).",
+                    "<strong>Optimization:</strong> Maximized performance during bulk transfer by controlling Excel application parameters.",
+                    "<strong>Internal Data Segregation:</strong> Developed macros to extract and distribute processed line-item data into segregated reporting abstracts.",
+                    "<strong>Cross-Worksheet Data Validation:</strong> Created a critical validation flow to map, copy, and synchronize variable values.",
+                    "<strong>CRITICAL DATA GOVERNANCE RULE:</strong> Implemented an immediate hard stop and error notification upon detecting any duplicate variable names."
+                ],
+                skills: ["Automation Engineering", "VBA Excel", "Microsoft Excel", "MySQL", "Data Integrity", "Google Gemini"]
             },
             {
                 id: 2,
-                title: "AI Receptionist & Secure Password Assistant",
-                date: "September 2025 - September 2025",
-                categories: ["ai-automation", "security"],
-                summary: "Built an internal bot to manage secure access to shared credentials using encryption and RBAC.",
+                title: "AI-Powered ChatOps Engine: Zero-Touch Automation",
+                date: "Nov 2025",
+                categories: ["ai-automation", "full-stack-devops", "featured"],
+                summary: "Built a multi-agent ChatOps system (Mattermost + Gemini AI + n8n) eliminating manual workflows.",
                 description: [
-                    "Built an internal Mattermost bot to manage <strong>secure access</strong> to shared credentials, utilizing <strong>encryption</strong>, <strong>role-based access checks (RBAC)</strong>, and secure retrieval via <code>/slash</code> commands to prevent credential leakage."
+                    "Built a multi-agent ChatOps system that enables Git, Database, DevOps, company info, and credential operations through natural-language commands inside Mattermost, eliminating manual workflows and speeding up developer/admin tasks."
                 ],
-                skills: ["N8n", "Mattermost", "Prompt Engineering", "Encryption", "RBAC", "Security"]
+                features: [
+                    "<strong>GitOps Agent:</strong> Executes branching, PR creation/merge, and user invites directly from chat. Automates PR links and status updates.",
+                    "<strong>Database Agent (DBOps):</strong> Natural-language interface for multi-database operations. Runs terminal-level queries with secure credential lookup.",
+                    "<strong>DevOps Terminal Agent:</strong> Executes system-level tasks (diagnostics, logs, service checks) and automates deployments.",
+                    "<strong>Secure Password Assistant:</strong> Provides encrypted credential lookup through slash-commands. Uses hashing + reversible encryption."
+                ],
+                skills: ["N8n", "NLP", "Prompt Engineering", "GitHub", "Mattermost", "Automation Engineering", "MySQL", "Google Gemini", "ChatOps"]
             },
             {
                 id: 3,
-                title: "Advanced Workflow Automation Suite (Part 1)",
-                date: "October 2024 - March 2025",
-                categories: ["ai-automation", "full-stack-devops"],
-                summary: "Automated resume screening with Gemini Vision AI, cPanel tasks via Telegram, and email scheduling.",
+                title: "Autonomous GenAI Voice Agent",
+                date: "Sep 2025 - Oct 2025",
+                categories: ["ai-automation", "featured"],
+                summary: "Developed a fully automated, AI-powered voice call agent stack managing end-to-end client interactions.",
                 description: [
-                    "<strong>Resume Screening & Interview Scheduling Flow:</strong> Triggered by a Google Form, stored data in Google Sheets, and used Google Gemini Vision AI to extract/interpret resume data. Automatically sent interview or rejection emails/WhatsApp messages.",
-                    "<strong>Browser Automation Agent (Admin Assistant):</strong> Leveraged BrowserUse AI via n8n to perform cPanel/CyberPanel admin tasks (create DBs, subdomains) triggered by Telegram messages. Sent updates to Microsoft Teams.",
-                    "<strong>Mail Scheduler Flow:</strong> Created an email scheduler using n8n's native cron and email nodes."
+                    "Developed a fully automated, AI-powered voice call agent stack that manages end-to-end client interactions (inbound/outbound) with zero human operator involvement. This system eliminates manual follow-ups by handling lead qualification, appointment scheduling, and personalized multi-channel responses."
                 ],
-                skills: ["cPanel", "Prompt Engineering", "Automation", "Google Sheets", "Python (Programming Language)", "Google Forms", "Artificial Intelligence (AI)", "Google Gemini"]
+                features: [
+                    "<strong>Outbound AI Agent:</strong> Uses Twilio and ElevenLabs for natural, human-like voice synthesis and global calling.",
+                    "<strong>Intelligent Logic Flow:</strong> Trained on company context to qualify leads based on budget criteria, automatically triggering summary emails and WhatsApp follow-ups.",
+                    "<strong>Inbound AI Agent:</strong> Functions as a virtual receptionist, checking team availability and booking appointments via Google Meet."
+                ],
+                skills: ["Twilio", "N8n", "Exotel", "Prompt Engineering", "Client Communication", "Google Sheets", "Google Meet", "ElevenLabs", "Google Gemini"]
             },
             {
                 id: 4,
-                title: "Advanced Workflow Automation Suite (Part 2)",
-                date: "October 2024 - March 2025",
-                categories: ["ai-automation"],
-                summary: "Built an AI-powered blog generator, a Gemini support bot, and a Pinecone knowledge base generator.",
+                title: "Multi-App Deployment & Server Infrastructure",
+                date: "Aug 2025",
+                categories: ["full-stack-devops", "featured"],
+                summary: "Designed a secure and scalable production environment on Ubuntu, integrating Cloudflare DNS.",
                 description: [
-                    "<strong>AI-Powered Blog Generator:</strong> Accepted a blog topic and used a chain of AI agent nodes (ChatGPT, n8n) to generate full blogs, including tags, titles, research, headers, image prompts, and SEO metadata.",
-                    "<strong>Vedikin Services AI Support Bot:</strong> Built a support assistant (Gemini, n8n) trained on a custom knowledge base (PDFs/text) to answer FAQs.",
-                    "<strong>Knowledge Base Generator:</strong> Used Python & Pinecone to parse and embed documents for QA.",
-                    "<strong>Newspaper Ad Scraper:</strong> Automated ad extraction from online newspapers using Python (Scrapy/BeautifulSoup) and n8n, with AI nodes for summarization."
+                    "Designed and deployed a secure and scalable production environment on Ubuntu, integrating Cloudflare DNS with custom CNAME routing to handle multiple applications and services under one domain."
                 ],
-                skills: ["ChatGPT", "Prompt Engineering", "Automation", "SMTP", "Python (Programming Language)", "Google Gemini"]
+                features: [
+                    "Deployed 2 Flask applications and 4 Selenium-powered WhatsApp automation bots.",
+                    "Configured Gunicorn as the application server and set up systemd services for automatic recovery.",
+                    "Established remote access resilience using CNAME-mapped SSH and noVNC.",
+                    "Configured Cloudflare routing rules to map multiple CNAMES into clean, secure access points."
+                ],
+                skills: ["Selenium", "Flask", "DNS Tunneling", "Samba", "noVNC", "MySQL", "Cloudflare", "Gunicorn", "Ubuntu"]
             },
             {
                 id: 5,
-                title: "Al-Powered WhatsApp Automation & Response System",
-                date: "February 2025 - March 2025",
-                categories: ["ai-automation"],
-                summary: "Designed an automated WhatsApp tool (Selenium, n8n) with intelligent replies via Google Gemini.",
+                title: "Stealth Security App: Python & AES",
+                date: "Oct 2024 - May 2025",
+                categories: ["security", "featured"],
+                summary: "Built a stealth-based Windows security application combining military-grade encryption and secure wiping.",
                 description: [
-                    "Designed a fully automated WhatsApp messaging tool (Python/Selenium, n8n) for intelligent, zero-cost communication.",
-                    "Features: Multi-profile login, chat scraping for unread messages, and intelligent replies via Google Gemini, custom knowledge bases, and Google Calendar integration.",
-                    "MySQL integration for scheduling messages, managing follow-ups, and dispatching media.",
-                    "Included a PHP-based UI for managing schedules, logs, and status."
+                    "Built a stealth-based Windows security application in Python, combining military-grade file encryption, secure file wiping, and system-level customization tools. Designed with user privacy, forensic resistance, and secure data handling in mind."
                 ],
-                skills: ["Selenium", "N8n", "ChatGPT", "Prompt Engineering", "Automation", "PHP", "MySQL", "Knowledge Base", "Python (Programming Language)", "Google Gemini"]
+                features: [
+                    "<strong>Hidden Launcher:</strong> Disguised as a trusted application (e.g., Firefox icon) requiring a custom passcode.",
+                    "<strong>Advanced Security:</strong> Implemented AES-based encryption with password protection and Multi-pass wipe module (Normal, Hard, Military algorithms).",
+                    "<strong>File Masking:</strong> Disguises encrypted files as legitimate formats (e.g., PDFs), hiding content in plain sight.",
+                    "<strong>Sub-EXE Generator:</strong> Stores operation metadata in a self-deleting background EXE."
+                ],
+                skills: ["AES", "Hashing", "Packing", "Tkinter", "Python", "Metadata Modeling", "Cybersecurity", "Forensics"]
             },
             {
                 id: 6,
-                title: "Production Server Infrastructure & Multi-App Deployment",
-                date: "August 2025 - August 2025",
-                categories: ["full-stack-devops"],
-                summary: "Deployed and hardened a scalable Ubuntu server (Nginx, Cloudflare WAF) to protect 6+ live applications.",
+                title: "Advanced Workflow Automation Suite",
+                date: "Oct 2024 - Mar 2025",
+                categories: ["ai-automation", "featured"],
+                summary: "Engineered Business level, intelligent automation workflows using n8n and AI agents.",
                 description: [
-                    "Deployed and <strong>hardened</strong> a scalable Ubuntu server, configuring <strong>Nginx (as a reverse proxy)</strong> and <strong>Cloudflare (WAF/DNS)</strong> security rules to protect 6+ live applications from public-facing threats and mitigate risks."
+                    "Engineered a collection of Business level, intelligent automation workflows using n8n and integrated with external AI agents (Gemini, ChatGPT) and Python scripts to streamline core business operations."
                 ],
-                skills: ["Ubuntu", "Cloudflare", "Flask", "Gunicorn", "Selenium", "noVNC", "Samba", "DNS Tunneling", "Hardening", "DevSecOps"]
+                features: [
+                    "<strong>Resume Screening:</strong> Triggered by Google Forms, used Gemini Vision AI to interpret resume data and automate scheduling.",
+                    "<strong>AI-Powered Blog Generator:</strong> Utilized a chain of AI agent nodes to generate full blogs including SEO metadata and image prompts.",
+                    "<strong>Browser Automation Agent:</strong> Leveraged n8n + BrowserUse AI to automate repetitive admin tasks (cPanel) via Telegram."
+                ],
+                skills: ["NLP", "ChatGPT", "Prompt Engineering", "Automation", "SMTP", "Python", "Google Gemini"]
             },
             {
                 id: 7,
-                title: "API Development for Industrial-Scale Application",
-                date: "March 2024 - July 2024",
-                categories: ["full-stack-devops"],
-                summary: "Architected and secured 20+ RESTful APIs (JWT, SQL) and performed API testing to validate endpoint security.",
+                title: "AI-Powered WhatsApp Automation System",
+                date: "Feb 2025 - Mar 2025",
+                categories: ["ai-automation", "featured"],
+                summary: "Fully automated WhatsApp messaging tool using Python (Selenium) and n8n with intelligent replies.",
                 description: [
-                    "Architected and <strong>secured</strong> a suite of 20+ RESTful APIs, implementing <strong>JWT authentication</strong> and a normalized SQL backend to ensure data integrity and <strong>prevent unauthorized access</strong>.",
-                    "Performed API testing to validate endpoint security."
+                    "Designed and developed a fully automated WhatsApp messaging tool using Python (Selenium) and n8n for intelligent communication workflows. The tool supports AI-based message replies, scheduling, and integration with third-party tools."
                 ],
-                skills: ["Databases", "N8n", "MVC", "Flask", "JWT", "SMTP", "API Development", "Python (Programming Language)", "API Testing", "Security"]
+                features: [
+                    "<strong>Chat Scraping:</strong> Logic to identify unread or unreplied messages in real-time.",
+                    "<strong>Intelligent Response:</strong> Uses Google Gemini AI and custom knowledge base to generate replies.",
+                    "<strong>MySQL Integration:</strong> Schedules timed messages and manages automated follow-ups.",
+                    "<strong>PHP UI:</strong> Management interface for scheduling, tracking, and logs."
+                ],
+                skills: ["Selenium", "N8n", "ChatGPT", "PHP", "MySQL", "Python", "Google Gemini"]
             },
             {
                 id: 8,
-                title: "ENC App - Advanced File Encryption & Stealth Utility Tool",
-                date: "October 2024 - February 2025",
-                categories: ["security"],
-                summary: "Award-winning Windows security app with military-grade AES encryption and forensic-resistant data wiping.",
+                title: "Automation Tool for Lead Generation",
+                date: "Aug 2024 - Oct 2024",
+                categories: ["ai-automation", "full-stack-devops", "featured"],
+                summary: "Optimized Python-based automation tool for lead generation by scraping structured business data.",
                 description: [
-                    "Awarded <strong>Star Employee of the Year</strong> for developing a Windows security app with <strong>military-grade AES encryption</strong>, <strong>forensic-resistant data wiping</strong>, and a stealth-based launcher.",
-                    "This project demonstrates deep knowledge of cryptographic principles and secure data handling."
+                    "Enhanced and optimized a Python-based automation tool for lead generation by scraping structured business data from major B2B and directory platforms including Google Maps, JustDial, IndiaMART, and TradeIndia."
                 ],
-                skills: ["AES", "system-level", "PyQt", "hashing", "Packing", "Tkinter", "Python (Programming Language)", "Metadata Modeling", "Encryption", "Security"]
+                features: [
+                    "Built with Selenium and a GUI using Tkinter.",
+                    "Automated OTP authentication for IndiaMART using real-time Selenium scripting.",
+                    "Integrated API logic for user login and demo account management."
+                ],
+                skills: ["Selenium", "Automation Engineering", "Tkinter", "Python", "Web Scraping"]
             },
             {
                 id: 9,
-                title: "Project Manager - End-to-End Revamp of UK-Based E-commerce Platform",
-                date: "April 2025 - Present",
-                categories: ["project-management"],
-                summary: "Led a 4-member team to stabilize a failing e-commerce platform, resolving 18% of bugs in 30 days.",
+                title: "API Development for Industrial Application",
+                date: "Mar 2024 - Jul 2024",
+                categories: ["full-stack-devops", "featured"],
+                summary: "Designed and deployed a robust suite of RESTful APIs supporting a live mobile application.",
                 description: [
-                    "Led the enhancement and stabilization of an e-commerce platform (PHP/CodeIgniter, MySQL).",
-                    "Coordinated a 4-member cross-functional team (dev, design, QA) to complete unfinished development.",
-                    "Managed all client communication (Slack), sprint planning (Asana), and task prioritization.",
-                    "Handled deployments (cPanel), environment setup, and end-to-end workflow clarity.",
-                    "<strong>Achievements:</strong> Resolved 18% of backlog bugs within the first month."
+                    "Designed, developed, and deployed a robust suite of RESTful APIs to support a live mobile application (APK) and a web-based Admin Panel, powering real-time data flow, user management, and system operations."
                 ],
-                skills: ["Asana", "Slack", "Microsoft Teams", "GitHub", "Bitbucket", "Project Management", "cPanel", "Client Communication", "Feature Prioritization", "Resource Allocation", "Project Team Management"]
-            },
-            {
-                id: 10,
-                title: "Project Manager - Development of an Internal Project Management Tool",
-                date: "April 2025 - Present",
-                categories: ["project-management"],
-                summary: "Managed a 4-person team to deliver 40% of a custom internal PM tool within 2 weeks.",
-                description: [
-                    "Managed the planning and execution of a custom project management solution for interdepartmental tracking.",
-                    "Led a 4-person team (devs, testers) to deliver a responsive project panel.",
-                    "Handled all client communications, timeline adherence, and requirement gathering.",
-                    "Guided technical planning, backend code structure, and implementation review.",
-                    "<strong>Achievements:</strong> Successfully delivered 40% of the product within 2 weeks."
+                features: [
+                    "Created CRUD APIs for 18 core modules.",
+                    "Engineered secure authentication using JWT tokens.",
+                    "Designed fully normalized relational database with advanced SQL JOINs.",
+                    "Followed clean MVC architecture using Python Flask."
                 ],
-                skills: ["Microsoft Teams", "Microsoft Excel", "Project Management", "Project Team Management", "Quality Assurance", "Feature Prioritization", "Resource Allocation", "Code Review"]
+                skills: ["Databases", "MVC", "Flask", "JWT", "REST API", "SMTP", "MySQL", "Python", "API Testing"]
             },
             {
                 id: 11,
-                title: "Desktop Utility Suite - Al-Powered Document & Estimate Automation",
-                date: "April 2025 - September 2025",
+                title: "Desktop Utility Suite - AI Document Automation",
+                date: "Apr 2025 - Sep 2025",
                 categories: ["ai-automation"],
-                summary: "Designed a suite of Al-enhanced Python/Tkinter utilities for document merging and image-to-PDF conversion.",
+                summary: "Designed a suite of Al-enhanced Python/Tkinter utilities for document merging and conversion.",
                 description: [
-                    "Designed a suite of four Al-enhanced Python utilities with Tkinter GUIs (packaged as .EXE).",
-                    "<strong>Utility 1: Image -> Word/PDF Generator:</strong> Converts image folders into documents. Uses Google Gemini AI to detect image type (map vs. standard) for automatic layout and to extract titles.",
-                    "<strong>Utility 4: Dynamic Multi-File Merger:</strong> Merges Excel, Word, and PDF documents in background mode with a Tkinter GUI for file sequencing."
+                    "Designed a suite of four Al-enhanced Python utilities with Tkinter GUIs. Includes Image -> Word/PDF Generator using Gemini AI for layout detection and Dynamic Multi-File Merger for document sequencing."
                 ],
-                skills: ["Microsoft Excel", "Tkinter", "Python (Programming Language)", "Google Gemini"]
-            },
-            {
-                id: 12,
-                title: "Automation Tool for Lead Generation from Business Platforms",
-                date: "August 2024 - October 2024",
-                categories: ["ai-automation", "full-stack-devops"],
-                summary: "Engineered a Python/Selenium tool, successfully automating OTP authentication and session management.",
-                description: [
-                    "Engineered a Python/Selenium tool, successfully handling and <strong>automating OTP authentication</strong> and <strong>session management</strong> to interact with secure platforms."
-                ],
-                skills: ["Selenium WebDriver", "Tkinter", "Python (Programming Language)", "Web Scraping", "Automation", "Session Management"]
+                features: [],
+                skills: ["Microsoft Excel", "Tkinter", "Python", "Google Gemini"]
             },
             {
                 id: 13,
-                title: "Automated Intraday Trading Bot with Candlestick Analysis",
-                date: "March 2025 - March 2025",
+                title: "Algorithmic Trading Bot (Upstox API)",
+                date: "Jul 2024 - Feb 2025",
                 categories: ["ai-automation", "full-stack-devops"],
-                summary: "Built an automated Python trading bot (Upstox API) that executed trades based on candlestick analysis.",
+                summary: "Built a zero-intervention algorithmic trading bot using the Upstox API.",
                 description: [
-                    "Built an intelligent, fully automated Python trading tool integrating with the Upstox API.",
-                    "Continuously fetched live 5-minute OHLC data and stored it in CSVs.",
-                    "Applied dynamic, multi-candle strategies to detect trade opportunities.",
-                    "Autonomously managed buy, profit-target, and stop-loss transactions.",
-                    "Logged all trades (P/L) and sent real-time WhatsApp alerts."
+                    "Built a zero-intervention algorithmic trading bot using the Upstox API, which processed live market data and executed trades autonomously with 100% reliability in a live production environment."
                 ],
-                skills: ["Risk Management", "Automation", "Microsoft Excel", "Python (Programming Language)", "Stock Market Analysis", "Conflict Resolution"]
+                features: [],
+                skills: ["Python", "API Integration", "Upstox API", "Algorithmic Trading", "Automation"]
+            },
+            {
+                id: 14,
+                title: "Project Manager - Revamp of UK-Based E-commerce Platform",
+                date: "Apr 2025 - Oct 2025",
+                categories: ["project-management"],
+                summary: "Led a 4-member team to stabilize a failing e-commerce platform, resolving 18% of bugs in 30 days.",
+                description: [
+                    "Led the enhancement and stabilization of an e-commerce platform (PHP/CodeIgniter, MySQL). Coordinated a 4-member cross-functional team (dev, design, QA) to complete unfinished development."
+                ],
+                features: [
+                    "Resolved 18% of backlog bugs within the first month.",
+                    "Managed client communication (Slack) and sprint planning (Asana).",
+                    "Handled deployments (cPanel) and environment setup."
+                ],
+                skills: ["Asana", "Slack", "Microsoft Teams", "GitHub", "Bitbucket", "Project Management", "cPanel"]
+            },
+            {
+                id: 15,
+                title: "Project Manager - Internal Project Management Tool",
+                date: "Apr 2025 - Oct 2025",
+                categories: ["project-management"],
+                summary: "Managed a 4-person team to deliver 40% of a custom internal PM tool within 2 weeks.",
+                description: [
+                    "Managed the planning and execution of a custom project management solution for interdepartmental tracking. Led a 4-person team (devs, testers) to deliver a responsive project panel."
+                ],
+                features: [
+                    "Successfully delivered 40% of the product within 2 weeks.",
+                    "Guided technical planning and backend code structure."
+                ],
+                skills: ["Microsoft Teams", "Microsoft Excel", "Project Management", "QA", "Feature Prioritization"]
+            }
+        ];
+
+        // Certification Data
+        const certData = [
+            {
+                id: 1,
+                title: "Star Employee of the Year (2024)",
+                date: "Awarded by VedikIn Solutions",
+                description: ["Recognized for exceptional performance and technical leadership in developing the 'ENC App' security architecture. This award highlights a commitment to excellence, innovation in cybersecurity practices, and the successful delivery of critical company infrastructure."],
+                skills: ["Security Architecture", "Leadership", "Python", "AES Encryption", "Innovation"]
+            },
+            {
+                id: 2,
+                title: "Accelerate App Development with Gemini CLI",
+                date: "Coursera · Google Cloud Training",
+                description: ["Specialized training focusing on leveraging the Gemini Command Line Interface to accelerate application development workflows. Mastered techniques for rapid prototyping, AI-assisted coding, and automating complex development tasks using Google's generative AI tools."],
+                skills: ["Gemini CLI", "AI Integration", "Rapid Prototyping", "Command Line Automation", "Google Cloud"]
+            },
+            {
+                id: 3,
+                title: "Gemini for Google Cloud Learning Path",
+                date: "Coursera · 7-Course Specialization",
+                description: ["Comprehensive specialization covering the integration of Gemini AI across the entire Software Development Life Cycle (SDLC). Gained deep expertise in using Gemini for various roles including Cloud Architects, Data Scientists, Security Engineers, and DevOps, enabling full-stack AI transformation."],
+                features: [
+                    "Gemini for Application Developers",
+                    "Gemini for Cloud Architects",
+                    "Gemini for Data Scientists and Analysts",
+                    "Gemini for Network Engineers",
+                    "Gemini for Security Engineers",
+                    "Gemini for DevOps Engineers",
+                    "Gemini for end-to-end SDLC"
+                ],
+                skills: ["Cloud Architecture", "DevOps", "Security Engineering", "Generative AI", "SDLC", "Data Analysis"]
             }
         ];
 
@@ -452,15 +601,17 @@
             const projectGrid = document.getElementById('project-grid');
             const projectCountEl = document.getElementById('project-count');
             const filterContainer = document.getElementById('skill-filter-container');
-            const modal = document.getElementById('project-modal');
+            const modal = document.getElementById('modal');
             const modalCloseBtn = document.getElementById('modal-close-btn');
             const modalTitle = document.getElementById('modal-title');
-            const modalDate = document.getElementById('modal-date');
+            const modalSubtitle = document.getElementById('modal-subtitle');
             const modalDescription = document.getElementById('modal-description');
             const modalSkills = document.getElementById('modal-skills');
             const mobileNav = document.getElementById('mobile-nav');
+            const modalFeaturesContainer = document.getElementById('modal-features-container');
+            const modalFeatures = document.getElementById('modal-features');
             
-            let activeFilter = 'all';
+            let activeFilter = 'featured';
 
             function renderProjects(filter) {
                 projectGrid.innerHTML = '';
@@ -469,21 +620,21 @@
                 projectData.forEach(project => {
                     const isVisible = filter === 'all' || project.categories.includes(filter);
                     
-                    const card = document.createElement('div');
-                    card.className = `project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-xl hover:-translate-y-1 ${isVisible ? '' : 'hidden'}`;
-                    card.setAttribute('data-project-id', project.id);
-                    
-                    card.innerHTML = `
-                        <div class="p-6">
-                            <h3 class="font-semibold text-gray-900 mb-2">${project.title}</h3>
-                            <p class="text-sm text-gray-600 line-clamp-2">${project.summary}</p>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                ${project.categories.map(cat => `<span class="text-xs font-medium text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded-full">${getCategoryName(cat)}</span>`).join('')}
-                            </div>
-                        </div>
-                    `;
-                    
                     if(isVisible) {
+                        const card = document.createElement('div');
+                        card.className = `project-card bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all group`;
+                        card.setAttribute('data-project-id', project.id);
+                        
+                        card.innerHTML = `
+                            <div class="h-2 bg-indigo-600 w-full group-hover:bg-indigo-500 transition-colors"></div>
+                            <div class="p-6">
+                                <h3 class="font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">${project.title}</h3>
+                                <p class="text-sm text-gray-600 line-clamp-3 mb-4 leading-relaxed">${project.summary}</p>
+                                <div class="flex flex-wrap gap-2">
+                                    ${project.categories.map(cat => `<span class="text-xs font-semibold text-gray-600 bg-gray-100 px-2 py-1 rounded-md uppercase tracking-wide border border-gray-200">${getCategoryName(cat)}</span>`).join('')}
+                                </div>
+                            </div>
+                        `;
                         projectGrid.appendChild(card);
                         count++;
                     }
@@ -494,33 +645,48 @@
             
             function getCategoryName(catId) {
                 switch(catId) {
+                    case 'featured': return '★ Featured';
                     case 'ai-automation': return 'AI & Automation';
                     case 'full-stack-devops': return 'Full-Stack & DevOps';
-                    case 'project-management': return 'Project Management';
+                    case 'project-management': return 'Project Mgmt';
                     case 'security': return 'Security';
                     default: return 'General';
                 }
             }
 
-            function openModal(projectId) {
-                const project = projectData.find(p => p.id == projectId);
-                if (!project) return;
+            function openModal(id, type) {
+                let data;
+                if (type === 'project') {
+                    data = projectData.find(p => p.id == id);
+                } else {
+                    data = certData.find(c => c.id == id);
+                }
                 
-                modalTitle.textContent = project.title;
-                modalDate.textContent = project.date;
+                if (!data) return;
                 
-                modalDescription.innerHTML = project.description.map(p => `<p>${p}</p>`).join('');
+                modalTitle.textContent = data.title;
+                modalSubtitle.textContent = data.date;
                 
-                modalSkills.innerHTML = project.skills.map(skill => 
-                    `<span class="text-xs font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-md font-mono-terminal">${skill}</span>` /* Added font */
+                modalDescription.innerHTML = data.description.map(p => `<p>${p}</p>`).join('');
+                
+                // Features Logic (Only for projects mostly, but keeping check generic)
+                if (data.features && data.features.length > 0) {
+                    modalFeaturesContainer.classList.remove('hidden');
+                    modalFeatures.innerHTML = data.features.map(f => `<p class="flex items-start"><span class="text-indigo-500 mr-2 mt-1">▪</span><span>${f}</span></p>`).join('');
+                } else {
+                    modalFeaturesContainer.classList.add('hidden');
+                }
+
+                modalSkills.innerHTML = data.skills.map(skill => 
+                    `<span class="text-xs font-semibold text-indigo-800 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-100 font-mono-terminal">${skill}</span>`
                 ).join('');
                 
-                modal.style.display = 'flex';
+                modal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
             }
 
             function closeModal() {
-                modal.style.display = 'none';
+                modal.classList.add('hidden');
                 document.body.style.overflow = 'auto';
             }
 
@@ -534,8 +700,12 @@
                     
                     filterContainer.querySelectorAll('.skill-btn').forEach(btn => {
                         btn.classList.remove('active');
+                        // Reset to default styles when inactive
+                        btn.classList.add('bg-white', 'text-gray-700');
                     });
+                    
                     e.target.classList.add('active');
+                    e.target.classList.remove('bg-white', 'text-gray-700'); // Remove base classes so active CSS wins
                     
                     renderProjects(activeFilter);
                 }
@@ -544,8 +714,15 @@
             projectGrid.addEventListener('click', (e) => {
                 const card = e.target.closest('.project-card');
                 if (card) {
-                    openModal(card.dataset.projectId);
+                    openModal(card.dataset.projectId, 'project');
                 }
+            });
+
+            // Add listener for cert cards
+            document.querySelectorAll('.cert-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    openModal(card.dataset.certId, 'cert');
+                });
             });
             
             modalCloseBtn.addEventListener('click', closeModal);
@@ -560,7 +737,7 @@
             });
             
             // Initial Render
-            renderProjects('all');
+            renderProjects('featured');
         });
     </script>
 </body>
